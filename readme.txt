@@ -1,3 +1,1 @@
-Git is a distributed version control system.
-Git is free software distributed under the GPL.
-create a branch
+learn how to build a blog using nodejs
