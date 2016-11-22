@@ -18,6 +18,8 @@ app.set('view engine', 'ejs');
 app.use(express.static(path.join(__dirname, 'public')));
 // session 中间件
 app.use(session({
+  resave : false,
+  saveUninitialized : true,
   name: config.session.key,// 设置 cookie 中保存 session id 的字段名称
   secret: config.session.secret,// 通过设置 secret 来计算 hash 值并放在 cookie 中，使产生的 signedCookie 防篡改
   cookie: {
@@ -43,7 +45,11 @@ app.use(function (req, res, next) {
   res.locals.error = req.flash('error').toString();
   next();
 });
-
+// 处理表单及文件上传的中间件
+app.use(require('express-formidable')({
+  uploadDir: path.join(__dirname, 'public/img'),// 上传文件目录
+  keepExtensions: true// 保留后缀	
+}));
 // 路由
 routes(app);
 
