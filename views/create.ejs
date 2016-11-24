@@ -14,28 +14,33 @@
     <form class="ui form segment" method="post" action="/posts">
       <div class="field required">
         <label>标题</label>
-        <input type="text" name="title">
+        <input type="text" name="title" id="title">
       </div>
       <div class="field required">
         <label>内容</label>
-        <textarea name="content" rows="15" id=" content"></textarea>
+        <textarea name="content" rows="15" id="content"></textarea>
       </div>
       <input type="submit" class="ui button" value="发布">
     </form>
    </div>
    
-   <div class="seven wide column">
-    <div class="ui form segment">
-      <div class="field required">
-        <label>标题</label>
-        <textarea name="text" name="title2" rows="1"></textarea>
-      </div>
-	  <div class="field required">
-        <label>内容</label>
-        <textarea name="content2" rows="15" id = "display"></textarea>
-      </div>
-     
+   <div class="seven wide column" >
+    <div class="ui segment">
+		<h3>效果预览:</h3	>
+		<h3><span id= "title2"></span></h3>
+        <pre id= "content2"></pre>
+      </div>     
     </div>
    </div>
-
+<script type = "text/javascript">
+	$('#title').bind('keyup',function(){
+		var text = $(this).val();
+		$('#title2').html(text);
+	});
+	$('#content').bind('keyup',function(){
+		var text = $(this).val();
+	    var converter = new showdown.Converter();
+		$('#content2').html(converter.makeHtml(text));
+	});
+</script>
 <%- include('footer') %>
